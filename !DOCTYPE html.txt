@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8-Ball Workspace</title>
+    <style>
+        body {
+            background-color: #121214;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .ball {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 60px 60px, #333, #000);
+            border-radius: 50%;
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .window {
+            width: 100px;
+            height: 100px;
+            background-color: #00072d;
+            border-radius: 50%;
+            border: 2px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #answer {
+            color: #00f3ff;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background-color: #222;
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #00f3ff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #00bcd4;
+        }
+
+        .shaking {
+            animation: shake 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(5px, 5px) rotate(3deg); }
+            100% { transform: translate(-5px, -5px) rotate(-3deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔮 Web Magic 8-Ball</h1>
+    <p>Type your question below and shake as many times as you want!</p>
+
+    <input type="text" id="questionInput" placeholder="Ask a yes or no question...">
+
+    <div class="ball" id="ballGraphic">
+        <div class="window">
+            <div id="answer">8</div>
+        </div>
+    </div>
+
+    <button onclick="shakeBall()">Shake the Ball</button>
+
+    <script>
+        const responses = [
+            "it is certain",
+            "diddy might be in your near future",
+            "dont count on it",
+            "reply hazzy, try again",
+            "without a doubt",
+            "Ask again later",
+            "My reply is no",
+            "Outlook good",
+            "Very doubtful"
+        ];
+
+        function shakeBall() {
+            const input = document.getElementById("questionInput");
+            const ball = document.getElementById("ballGraphic");
+            const answerDisplay = document.getElementById("answer");
+
+            if (input.value.trim() === "") {
+                alert("Please type a question first!");
+                return;
+            }
+
+            answerDisplay.textContent = "...";
+            ball.classList.add("shaking");
+
+            setTimeout(() => {
+                ball.classList.remove("shaking");
+                const randomIndex = Math.floor(Math.random() * responses.length);
+                answerDisplay.textContent = responses[randomIndex];
+                input.value = ""; 
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
